@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>轻记账</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="title">
+      <h1>轻记账</h1>
+      <p class="sub">纯前端 · 本地保存 · 手机可用</p>
+    </div>
+    <div class="header-actions">
+      <button id="btnExport" class="btn">导出</button>
+      <label class="btn ghost">
+        导入
+        <input id="fileImport" type="file" accept="application/json" hidden />
+      </label>
+      <button id="btnClear" class="btn danger ghost">清空</button>
+      <button id="btnDonate" class="btn ghost">打赏</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2 class="card-title">新增记录</h2>
+
+      <form id="formAdd" class="form">
+        <div class="row">
+          <label class="field">
+            <span>类型</span>
+            <select id="type">
+              <option value="expense" selected>支出</option>
+              <option value="income">收入</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>金额</span>
+            <input id="amount" inputmode="decimal" placeholder="例如 28.5" required />
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span>分类</span>
+            <select id="category"></select>
+          </label>
+
+          <label class="field">
+            <span>日期</span>
+            <input id="date" type="date" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>备注</span>
+          <input id="note" maxlength="40" placeholder="例如 午饭 / 地铁 / 工资" />
+        </label>
+
+        <button class="btn primary" type="submit">保存</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2 class="card-title">统计</h2>
+        <div class="filters">
+          <select id="month"></select>
+          <input id="q" placeholder="搜索备注/分类…" />
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="k">收入</div>
+          <div class="v" id="sumIncome">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">支出</div>
+          <div class="v" id="sumExpense">0</div>
+        </div>
+        <div class="stat">
+          <div class="k">结余</div>
+          <div class="v" id="sumNet">0</div>
+        </div>
+      </div>
+
+      <div class="list" id="list"></div>
+      <p class="tip">数据保存在本机浏览器（LocalStorage）。建议定期导出备份。</p>
+    </section>
+  </main>
+
+<div id="donateModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-mask" id="donateMask"></div>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">支持一下 ☕</div>
+        <div class="modal-sub">打开微信/支付宝扫一扫即可</div>
+      </div>
+      <button class="icon-btn" id="donateClose" aria-label="关闭">✕</button>
+    </div>
+
+    <div class="donate-grid">
+      <div class="donate-item">
+        <div class="badge">微信</div>
+        <img class="donate-img" src="./assets/wechat.png" alt="微信收款码">
+        <div class="meta">微信扫码打赏</div>
+      </div>
+
+      <div class="donate-item">
+        <div class="badge">支付宝</div>
+        <img class="donate-img" src="./assets/alipay.png" alt="支付宝收款码">
+        <div class="meta">支付宝扫码打赏</div>
+      </div>
+    </div>
+
+    <div class="modal-foot meta">提示：如果图片不清晰，请点开图片后放大扫码。</div>
+  </div>
+</div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
